@@ -80,6 +80,7 @@
         "slack"
         "spotify"
         "xbar"
+        "rectangle"
       ];
     };
 }
