@@ -1,41 +1,30 @@
 #!/bin/bash
 
 set -e -x
-
-# We need sudo - adjust username
-su tostieme
+stty -tostop
 
 # Install nix
-sh <(curl -L https://nixos.org/nix/install)
-
-# Install Nix-Darwin
-nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-./result/bin/darwin-installer
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install --no-confirm
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
 # Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh
+chmod +x install.sh
+./install.sh
+rm -fr install.sh
+eval "$(/usr/local/bin/brew shellenv)"
 
-# Install Packer for nvim
-git clone --depth 1 https://github.com/wbthomason/packer.nvim\
- ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+# Apply flake.nix
+sudo rm -fr /etc/bashrc
+sudo rm -fr /etc/zshrc
+nix run nix-darwin -- switch --flake .#simple
 
-# Move configuration.nix
-cp -r darwin-configuration.nix ~/.nixpkgs/
+# Install Packer
+git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
-# Move configs 
-# # Wezterm
+# Get all App configs
 cp .wezterm.lua ~/.wezterm.lua
-
-# nvim
-cp -r nvim ~/.config/
-# Run Packer Sync
-nvim ~/.config/nvim/lua/tostieme/packer.lua --headless -c 'so' -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
-# .zshrc
-mv .zshrc ~/.zshrc
-
-# Run nix
-darwin-rebuild switch
-
-
+sudo rm -fr ~/.zshrc
+cp .zshrc ~/.zshrc
+git clone --depth 1 git@github.com:tostieme/nvim-conf.git ~/.config/nvim
 
