@@ -61,6 +61,8 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
+  system.defaults.NSGlobalDomain.KeyRepeat = 8;
+  system.defaults.NSGlobalDomain.InitialKeyRepeat = 6;
 
   homebrew = {
       enable = true;
