@@ -19,15 +19,11 @@ install-packer:
 move-config:
 	cp -r darwin-configuration.nix ~/.nixpkgs/
 	cp .wezterm.lua ~/.wezterm.lua
-	cp -r nvim ~/.config/
 	sudo rm -fr ~/.zshrc
 	cp .zshrc ~/.zshrc
+	git clone --depth 1 git@github.com:tostieme/nvim-conf.git ~/.config/nvim
 
 # Run nix
 darin-rebuild:
 	sudo darwin-rebuild switch
-
-# Run Packer Sync
-packer-sync:
-	nvim ~/.config/nvim/lua/tostieme/packer.lua --headless -c 'so' -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
