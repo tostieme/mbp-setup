@@ -68,8 +68,10 @@
       # Used for backwards compatibility, please read the changelog before changing.
       # $ darwin-rebuild changelog
       system.stateVersion = 4;
-      system.defaults.NSGlobalDomain.KeyRepeat = 9;
-      system.defaults.NSGlobalDomain.InitialKeyRepeat = 6;
+      # Tastenwiederholrate
+      system.defaults.NSGlobalDomain.KeyRepeat = 2;
+      # Ansprechvezögerung
+      system.defaults.NSGlobalDomain.InitialKeyRepeat = 15;
 
       homebrew = {
           enable = true;
@@ -85,6 +87,7 @@
             "slack"
             "spotify"
             "zoom"
+            "rectangle"
           ];
         };
 
