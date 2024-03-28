@@ -24,6 +24,7 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvi
 
 # Get all App configs
 cp .wezterm.lua ~/.wezterm.lua
+cp .p10k.zsh ~/.p10k.zsh
 sudo rm -fr ~/.zshrc
 cp .zshrc ~/.zshrc
 git clone --depth 1 git@github.com:tostieme/nvim-conf.git ~/.config/nvim
