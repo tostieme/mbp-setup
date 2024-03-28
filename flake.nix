@@ -77,7 +77,7 @@
           enable = true;
           onActivation.upgrade = true;
           brews = [
-            "helm" "zsh-syntax-highlighting" "zsh-autosuggestions" "terraform" "k9s" "vault"
+            "helm" "zsh-syntax-highlighting" "zsh-autosuggestions" "powerlevel10k" "terraform" "k9s" "vault"
           ];
           casks = [
             "wezterm"
